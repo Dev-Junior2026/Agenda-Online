@@ -1,4 +1,4 @@
-package com.luispacheco.agendaonlinebackend;
+package com.luispacheco.agendaonline;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

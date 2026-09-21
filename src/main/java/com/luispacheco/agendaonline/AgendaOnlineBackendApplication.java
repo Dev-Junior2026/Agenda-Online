@@ -1,4 +1,4 @@
-package com.luispacheco.agendaonlinebackend;
+package com.luispacheco.agendaonline;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
