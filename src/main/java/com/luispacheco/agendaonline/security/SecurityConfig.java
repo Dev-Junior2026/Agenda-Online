@@ -2,6 +2,7 @@ package com.luispacheco.agendaonline.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,11 +21,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable()) // Deshabilitamos CSRF para pruebas cómodas en APIs REST con Postman o apps cliente
+                .csrf(csrf -> csrf.disable()) // Deshabilitamos CSRF para APIs REST
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/users/register").permitAll() // Permitir registro público por ahora
-                        .anyRequest().permitAll() // De momento permitimos todo para ir probando las rutas, luego lo restringiremos
-                );
+                        .requestMatchers("/api/users/register", "/api/users/login").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults()); // Habilitamos autenticación básica para pruebas
 
         return http.build();
     }
